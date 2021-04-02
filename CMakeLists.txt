@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.15)
 
+# Set vcpkg root, to find packages.
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+      CACHE STRING "")
+endif()
+
 # Set the project name to your project name, my project isn't very descriptive
 project(myproject CXX)
 include(cmake/StandardProjectSettings.cmake)
@@ -56,24 +62,10 @@ if(ENABLE_PCH)
     <utility>)
 endif()
 
-# Set up some extra Conan dependencies based on our needs before loading Conan
-set(CONAN_EXTRA_REQUIRES "")
-set(CONAN_EXTRA_OPTIONS "")
-
-if(CPP_STARTER_USE_IMGUI)
-  set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES} imgui-sfml/2.1@bincrafters/stable)
-
-  # set(CONAN_EXTRA_OPTIONS ${CONAN_EXTRA_OPTIONS} sfml:shared=False sfml:graphics=True sfml:audio=False
-  # sfml:window=True libalsa:disable_python=True)
-endif()
-
-if(CPP_STARTER_USE_SDL)
-  set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES} sdl2/2.0.10@bincrafters/stable)
-  # set(CONAN_EXTRA_OPTIONS ${CONAN_EXTRA_OPTIONS} sdl2:wayland=True)
-endif()
-
-include(cmake/Conan.cmake)
-run_conan()
+find_package(Catch2 2.13.1 CONFIG REQUIRED)
+find_package(docopt 0.6.2 CONFIG REQUIRED)
+find_package(fmt 6.2.0 CONFIG REQUIRED)
+find_package(spdlog 1.5.0 CONFIG REQUIRED)
 
 if(ENABLE_TESTING)
   enable_testing()
