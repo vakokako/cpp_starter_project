@@ -1,3 +1,5 @@
+add_subdirectory(gui_qt)
+
 add_executable(intro main.cpp)
 target_link_libraries(
   intro

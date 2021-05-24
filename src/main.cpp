@@ -32,8 +32,6 @@ int main(int argc, const char **argv)
     for (auto const &arg : args) {
         std::cout << arg.first << arg.second << std::endl;
     }
-
-
     //Use the default logger (stdout, multi-threaded, colored)
     spdlog::info("Hello, {}!", "World");
 
