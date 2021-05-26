@@ -4,7 +4,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} ${Qt_REQUIRED_VERSION} COMPONENTS Widgets REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
-add_executable(GuiQt GuiQtMain.cpp GuiQt.cpp)
+add_executable(GuiQt GuiQt.cpp)
 # set_target_properties( GuiQt PROPERTIES CMAKE_AUTOMOC ON )
 target_link_libraries(
   GuiQt
